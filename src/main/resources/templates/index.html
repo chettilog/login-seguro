@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Início')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<main class="container">
+    <div class="card">
+        <h1>Bem-vindo ao Login Seguro</h1>
+        <p class="texto-suave">
+            Sistema de autenticação e autorização com Spring Boot, Spring Security,
+            Thymeleaf e MongoDB Atlas.
+        </p>
+
+        <!-- Visitante -->
+        <div sec:authorize="isAnonymous()">
+            <a th:href="@{/login}" class="btn">Entrar</a>
+            <a th:href="@{/cadastro}">Criar uma conta</a>
+        </div>
+
+        <!-- Logado -->
+        <div sec:authorize="isAuthenticated()">
+            <a th:href="@{/painel}" class="btn">Ir para o painel</a>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Gestão')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<main class="container">
+    <div class="card">
+        <h1>Área de gestão</h1>
+        <p>Esta página só pode ser acessada pelos perfis <span class="badge">GESTOR</span>
+            e <span class="badge">ADMIN</span>.</p>
+        <p class="texto-suave">
+            Espaço reservado para as funcionalidades de gestão do tema do projeto
+            (relatórios, aprovações, acompanhamento etc.).
+        </p>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

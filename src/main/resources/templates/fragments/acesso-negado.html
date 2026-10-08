@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Acesso negado')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<main class="container">
+    <div class="card card-estreito">
+        <h1>Acesso negado</h1>
+        <div class="alerta alerta-erro">Seu perfil não tem permissão para acessar esta página.</div>
+        <a th:href="@{/painel}" class="btn">Voltar ao painel</a>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

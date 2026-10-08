@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- Cabeçalho, menu e rodapé vêm do layout compartilhado (fragments/layout.html) -->
+<head th:replace="~{fragments/layout :: head('Entrar')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<main class="container">
+    <div class="card card-estreito">
+        <h1>Entrar</h1>
+
+        <!-- Mensagens -->
+        <div th:if="${param.erro}" class="alerta alerta-erro">E-mail ou senha inválidos.</div>
+        <div th:if="${param.logout}" class="alerta alerta-sucesso">Você saiu do sistema.</div>
+        <div th:if="${sucesso}" class="alerta alerta-sucesso" th:text="${sucesso}"></div>
+
+        <!-- O Spring Security processa este POST e adiciona o token CSRF automaticamente -->
+        <form th:action="@{/login}" method="post">
+            <div class="campo">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required autofocus>
+            </div>
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required>
+            </div>
+            <button type="submit" class="btn btn-bloco">Entrar</button>
+        </form>
+
+        <p class="texto-suave">Não tem conta? <a th:href="@{/cadastro}">Cadastre-se</a></p>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

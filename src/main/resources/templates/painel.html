@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="~{fragments/layout :: head('Painel')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<main class="container">
+    <div class="card" th:if="${usuario}">
+        <h1>Olá, <span th:text="${usuario.nome}">usuário</span>!</h1>
+        <p class="texto-suave">Logado como <strong th:text="${usuario.email}"></strong></p>
+
+        <p>Seu perfil:
+            <span class="badge" th:each="perfil : ${usuario.roles}" th:text="${perfil}"></span>
+        </p>
+
+        <h2>Áreas disponíveis para você</h2>
+        <ul>
+            <li>Painel (todos os perfis)</li>
+            <!-- sec:authorize mostra o item só para quem tem o perfil -->
+            <li sec:authorize="hasAnyRole('ADMIN','GESTOR')">
+                <a th:href="@{/gestor}">Área de gestão</a> (GESTOR e ADMIN)
+            </li>
+            <li sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/admin/usuarios}">Gerenciar usuários</a> (somente ADMIN)
+            </li>
+        </ul>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

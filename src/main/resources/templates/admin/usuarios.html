@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Usuários')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<main class="container">
+    <div class="card">
+        <h1>Gerenciar usuários</h1>
+
+        <div th:if="${sucesso}" class="alerta alerta-sucesso" th:text="${sucesso}"></div>
+        <div th:if="${erro}" class="alerta alerta-erro" th:text="${erro}"></div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Perfil atual</th>
+                <th>Alterar perfil</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="u : ${usuarios}">
+                <td th:text="${u.nome}"></td>
+                <td th:text="${u.email}"></td>
+                <td><span class="badge" th:each="p : ${u.roles}" th:text="${p}"></span></td>
+                <td>
+                    <!-- O admin não altera o próprio perfil -->
+                    <form th:if="${u.email != #authentication.name}"
+                          th:action="@{/admin/usuarios/{id}/perfil(id=${u.id})}"
+                          method="post" class="inline">
+                        <select name="perfil">
+                            <option th:each="p : ${perfis}"
+                                    th:value="${p}" th:text="${p}"
+                                    th:selected="${u.roles.contains(p)}"></option>
+                        </select>
+                        <button type="submit" class="btn">Salvar</button>
+                    </form>
+                    <span th:unless="${u.email != #authentication.name}" class="texto-suave">(você)</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

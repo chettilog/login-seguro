@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Criar conta')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: navbar}"></header>
+
+<main class="container">
+    <div class="card card-estreito">
+        <h1>Criar conta</h1>
+
+        <!-- Erro de regra de negócio (ex.: e-mail já cadastrado) -->
+        <div th:if="${erro}" class="alerta alerta-erro" th:text="${erro}"></div>
+
+        <!-- th:object liga o formulário ao CadastroForm; th:errors mostra as validações -->
+        <form th:action="@{/cadastro}" th:object="${form}" method="post" novalidate>
+            <div class="campo">
+                <label for="nome">Nome</label>
+                <input type="text" th:field="*{nome}">
+                <div class="erro-campo" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+            </div>
+
+            <div class="campo">
+                <label for="email">E-mail</label>
+                <input type="email" th:field="*{email}">
+                <div class="erro-campo" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+
+            <div class="campo">
+                <label for="senha">Senha</label>
+                <!-- Campos de senha não são preenchidos de volta em caso de erro (segurança) -->
+                <input type="password" id="senha" name="senha">
+                <div class="texto-suave">Mínimo de 8 caracteres, com letras e números.</div>
+                <div class="erro-campo" th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
+            </div>
+
+            <div class="campo">
+                <label for="confirmarSenha">Confirmar senha</label>
+                <input type="password" id="confirmarSenha" name="confirmarSenha">
+                <div class="erro-campo" th:if="${#fields.hasErrors('confirmarSenha')}" th:errors="*{confirmarSenha}"></div>
+            </div>
+
+            <button type="submit" class="btn btn-bloco">Cadastrar</button>
+        </form>
+
+        <p class="texto-suave">Já tem conta? <a th:href="@{/login}">Entrar</a></p>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>
