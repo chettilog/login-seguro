@@ -1,4 +1,4 @@
-#Sistema de Login Seguro
+# Sistema de Login Seguro
 
 Projeto feito para a disciplina, com o objetivo de montar um sistema de login com cadastro, controle de acesso por perfil e armazenamento no MongoDB Atlas. A ideia é que ele sirva de base para outros projetos, então tentei deixar a lógica separada da parte visual.
 
